@@ -1,0 +1,93 @@
+Exercise 1 
+
+Create a database schema for the online consultation and therapy website. The database should contain the following tables:-
+create database onlineconsultation;
+create database therapywebsite;
+
+Doctor table:- The table should contain the attributes such as id, name, specialization, etc.
+
+create table Doctor(id int primary key not null,
+name varchar(20) not null,
+specialization varchar(20) not null);
+insert into Doctor values(101,"pooja","cardiology"),
+(102,"pavani","nuerology"),
+(103,"roopa","pathology"),
+(104,"nikitha","dermatology"),
+(105,"deeksha","hematology");
+
+
+Appointments table:- The table should contain information related to appointments set up by doctors and patients.
+
+create table Appointments(id int primary key not null,
+doctor_name varchar(25) not null,
+patient_name varchar(20) not null,
+app_Date date not null);
+insert into Appointments values(201,"kumar","pooja","2023-05-01"),
+(202,"Ravi","pavani","2023-05-02"),
+(203,"sreekanth","bhavana","2023-05-03"),
+(204,"govardhan","shreyas","2023-05-04");
+
+Patient table:- The table should contain information on patients.
+
+create table Patient(
+pat_id int primary key not null,
+first_name varchar(25) not null,
+last_name varchar(25) not null,
+disease varchar(25),
+address varchar(30));
+insert into Patient values(1000,"karekallu","pooja","fever","anantapur"),
+(1001,"jejamagari","pavani","cold","kadapa"),
+(1002,"lavanuru","suma","cough","kurnool"),
+(1003,"pallapothulla","bhavana","headache","nellore");
+
+Reviews table:- This table should contain reviews posted by patients.
+create table Reviews (
+name varchar(25) not null primary key,
+doc_name varchar(25) not null,
+feedback varchar(25));
+insert into Reviews values("pooja","pavani","good"),
+("suma","thrisha","better"),
+("keerthi","bhavana","very good"),
+("pranitha","loki","not bad");
+
+Exercise 2 
+
+create  table Contact(
+id int primary key not null,
+Email varchar(20) not null,
+fname varchar(20),
+lname varchar(20),
+company varchar(15) not null,
+Active_flag int,
+opt_out int);
+insert into Contact values(123,"a@a.com","Kain","Seth","ABC",1,1),
+(133,"b@a.com","Neha","Seth","ABC",1,0),
+(234,"c@c.com","Peru","Malik","CDF",0,0),
+(342,"d@d.com","Sid","Maan","TEG",1,0);
+
+1.Select all columns from the contact table where the active flag is 1
+select * from Contact where Active_flag=1;
+
+2.Deactivate contacts who are opted out 
+delete from Contact where opt_out=1;
+
+3Delete all the contacts who have the company name as ‘ABC’
+delete from Contact where company="ABC";
+
+4.Insert a new row with id as 658, name as ‘mili’, email as ‘mili@gmail.com’, the company as ‘DGH’, active flag as 1, opt-out flag as 1
+insert into Contact values(658,"mili@gmail.com","mili","abc","DGH",1,1);
+
+5.Pull out the unique values of the company column 
+select distinct(company) from Contact;
+
+6.Update name “mili” to “niti”.
+update Contact set fname="niti" where fname="mili";
+
+Exercise 3 
+
+Write a SQL query to find those customers with a grade less than 100. It should return cust_name, customer city, grade, salesman, and salesman city. The result should be ordered by ascending customer_id.
+
+select c.cust_name ,c.city,c.grade,s.name as "salesman",s.city from customer c
+left outer join salesman s on c.salesman_id=s.salesman_id
+where c.grade<100
+order by c.customer_id;
